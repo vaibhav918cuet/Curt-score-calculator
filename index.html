@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>CUET Score Calculator</title></head>
+<body>
+  <h2>Enter CUET Answer Key PDF URL</h2>
+  <input id="pdfUrl" type="text" placeholder="Paste PDF URL here">
+  <button onclick="calculate()">Calculate Score</button>
+  <p id="result"></p>
+
+  <script>
+    async function calculate() {
+      const url = document.getElementById('pdfUrl').value;
+      const res = await fetch('/calculate', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({url})
+      });
+      const json = await res.json();
+      document.getElementById('result').innerText = `🎯 Your Score: ${json.score}`;
+    }
+  </script>
+</body>
+</html>
